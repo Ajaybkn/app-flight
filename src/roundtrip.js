@@ -282,6 +282,7 @@ const RoundTrip = () => {
           borderRadius: "8px",
           fontSize: "16px",
           fontWeight: "bold",
+          marginRight: "10px",
         }}
       >
         Search Flights
