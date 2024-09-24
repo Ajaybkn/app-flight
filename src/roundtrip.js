@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faPlane,
   faLocationDot,
   faArrowsAltH,
   faUser,
@@ -37,25 +38,27 @@ const RoundTrip = () => {
   const handleDepartureChange = (e) => {
     const input = e.target.value;
     setDeparture(input);
-    setFilteredDepartures(
-      input.length > 1
-        ? airports.filter((airport) =>
-            airport.iata_code.toLowerCase().includes(input.toLowerCase())
-          )
-        : []
-    );
+    if (input.length > 1) {
+      const filtered = airports.filter((airport) =>
+        airport.iata_code.toLowerCase().includes(input.toLowerCase())
+      );
+      setFilteredDepartures(filtered);
+    } else {
+      setFilteredDepartures([]);
+    }
   };
 
   const handleArrivalChange = (e) => {
     const input = e.target.value;
     setArrival(input);
-    setFilteredArrivals(
-      input.length > 1
-        ? airports.filter((airport) =>
-            airport.airport_name.toLowerCase().includes(input.toLowerCase())
-          )
-        : []
-    );
+    if (input.length > 1) {
+      const filtered = airports.filter((airport) =>
+        airport.airport_name.toLowerCase().includes(input.toLowerCase())
+      );
+      setFilteredArrivals(filtered);
+    } else {
+      setFilteredArrivals([]);
+    }
   };
 
   const handleFormSubmit = (e) => {
@@ -97,6 +100,28 @@ const RoundTrip = () => {
             borderColor: "#ccc",
           }}
         />
+        {filteredDepartures.length > 0 && (
+          <ul className="suggestions-dropdown" id="suggestion">
+            {filteredDepartures.map((airport, index) => (
+              <li
+                key={index}
+                onClick={() => {
+                  setDeparture(
+                    `${airport.iata_code} - ${airport.airport_name}`
+                  );
+                  setFilteredDepartures([]);
+                }}
+              >
+                <FontAwesomeIcon
+                  icon={faPlane}
+                  style={{ marginRight: "8px" }}
+                />
+                {airport.airport_name} ({airport.iata_code}) {airport.city_name}
+                , {airport.country_name}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       {/* Swap Button */}
@@ -135,6 +160,26 @@ const RoundTrip = () => {
             borderColor: "#ccc",
           }}
         />
+        {filteredArrivals.length > 0 && (
+          <ul className="suggestions-dropdown" id="arrival-suggestion">
+            {filteredArrivals.map((airport, index) => (
+              <li
+                key={index}
+                onClick={() => {
+                  setArrival(`${airport.iata_code} - ${airport.airport_name}`);
+                  setFilteredArrivals([]);
+                }} // Close the dropdown
+              >
+                <FontAwesomeIcon
+                  icon={faPlane}
+                  style={{ marginRight: "8px" }}
+                />
+                {airport.airport_name} ({airport.iata_code}) {airport.city_name}
+                , {airport.country_name}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       {/* Departure Date */}
