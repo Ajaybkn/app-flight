@@ -58,14 +58,6 @@ const HeaderWebsite = () => {
             className="d-flex justify-content-end align-items-center"
           >
             {/* Sign In/Join */}
-            <Nav className="me-4 d-none d-md-flex">
-              <Nav.Link href="#" className="text-dark">
-                Help
-              </Nav.Link>
-              <Nav.Link href="#" className="text-dark">
-                Sign In / Join
-              </Nav.Link>
-            </Nav>
 
             {/* Mobile Sign In/Join */}
             <Nav className="d-flex d-md-none">
