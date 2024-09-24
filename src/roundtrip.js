@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -19,6 +20,7 @@ const RoundTrip = () => {
   const [filteredDepartures, setFilteredDepartures] = useState([]);
   const [filteredArrivals, setFilteredArrivals] = useState([]);
 
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -64,6 +66,7 @@ const RoundTrip = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     console.log({ departure, arrival, departureDate, returnDate, travellers });
+    navigate("/flight-search");
   };
 
   return (
